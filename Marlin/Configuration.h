@@ -17,8 +17,8 @@
 #define SERIAL_PORT 0
 
 // This determines the communication speed of the printer
-#define BAUDRATE 250000
-//#define BAUDRATE 115200
+//#define BAUDRATE 250000
+#define BAUDRATE 115200
 
 //// The following define selects which electronics board you have. Please choose the one that matches your setup
 // 10 = Gen7 custom (Alfons3 Version) "https://github.com/Alfons3/Generation_7_Electronics"
@@ -54,12 +54,15 @@
 // 301 = Rambo
 // 21 = Elefu Ra Board (v3)
 
+#define MOTHERBOARD 34
+
 #ifndef MOTHERBOARD
 #define MOTHERBOARD 7
 #endif
 
 // Define this to set a custom name for your generic Mendel,
 // #define CUSTOM_MENDEL_NAME "This Mendel"
+#define CUSTOM_MENDEL_NAME "Graber i3"
 
 // This defines the number of extruders
 #define EXTRUDERS 1
@@ -135,13 +138,13 @@
 // 52 is 200k thermistor - ATC Semitec 204GT-2 (1k pullup)
 // 55 is 100k thermistor - ATC Semitec 104GT-2 (Used in ParCan) (1k pullup)
 
-#define TEMP_SENSOR_0 -1
-#define TEMP_SENSOR_1 -1
+#define TEMP_SENSOR_0 1
+#define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
-#define TEMP_SENSOR_BED 0
+#define TEMP_SENSOR_BED 1
 
 // This makes temp sensor 1 a redundant sensor for sensor 0. If the temperatures difference between these sensors is to high the print will be aborted.
-//#define TEMP_SENSOR_1_AS_REDUNDANT 
+//#define TEMP_SENSOR_1_AS_REDUNDANT
 #define MAX_REDUNDANT_TEMP_SENSOR_DIFF 10
 
 // Actual temperature must be close to target for this long before M109 returns success
@@ -152,10 +155,16 @@
 // The minimal temperature defines the temperature below which the heater will not be enabled It is used
 // to check that the wiring to the thermistor is not broken.
 // Otherwise this would lead to the heater being powered on all the time.
+/*
 #define HEATER_0_MINTEMP 5
 #define HEATER_1_MINTEMP 5
 #define HEATER_2_MINTEMP 5
 #define BED_MINTEMP 5
+*/
+#define HEATER_0_MINTEMP 0
+#define HEATER_1_MINTEMP 0
+#define HEATER_2_MINTEMP 0
+#define BED_MINTEMP 0
 
 // When temperature exceeds max temp, your heater will be switched off.
 // This feature exists to protect your hotend from overheating accidentally, but *NOT* from thermistor short/failure!
@@ -278,10 +287,10 @@
 #endif
 
 // The pullups are needed if you directly connect a mechanical endswitch between the signal and ground pins.
-const bool X_ENDSTOPS_INVERTING = true; // set to true to invert the logic of the endstops.
-const bool Y_ENDSTOPS_INVERTING = true; // set to true to invert the logic of the endstops.
-const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of the endstops.
-//#define DISABLE_MAX_ENDSTOPS
+const bool X_ENDSTOPS_INVERTING = false; // set to true to invert the logic of the endstops.
+const bool Y_ENDSTOPS_INVERTING = false; // set to true to invert the logic of the endstops.
+const bool Z_ENDSTOPS_INVERTING = false; // set to true to invert the logic of the endstops.
+#define DISABLE_MAX_ENDSTOPS
 //#define DISABLE_MIN_ENDSTOPS
 
 // Disable max endstops for compatibility with endstop checking routine
@@ -301,9 +310,9 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
 #define DISABLE_Z false
 #define DISABLE_E false // For all extruders
 
-#define INVERT_X_DIR true    // for Mendel set to false, for Orca set to true
-#define INVERT_Y_DIR false    // for Mendel set to true, for Orca set to false
-#define INVERT_Z_DIR true     // for Mendel set to false, for Orca set to true
+#define INVERT_X_DIR false    // for Mendel set to false, for Orca set to true
+#define INVERT_Y_DIR true    // for Mendel set to true, for Orca set to false
+#define INVERT_Z_DIR false     // for Mendel set to false, for Orca set to true
 #define INVERT_E0_DIR false   // for direct drive extruder v9 set to true, for geared extruder set to false
 #define INVERT_E1_DIR false    // for direct drive extruder v9 set to true, for geared extruder set to false
 #define INVERT_E2_DIR false   // for direct drive extruder v9 set to true, for geared extruder set to false
@@ -321,7 +330,8 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
 #define X_MIN_POS 0
 #define Y_MAX_POS 205
 #define Y_MIN_POS 0
-#define Z_MAX_POS 200
+//#define Z_MAX_POS 200
+#define Z_MAX_POS 180
 #define Z_MIN_POS 0
 
 #define X_MAX_LENGTH (X_MAX_POS - X_MIN_POS)
@@ -345,8 +355,11 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
 
 // default settings
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {78.7402,78.7402,200.0*8/3,760*1.1}  // default steps per unit for Ultimaker
-#define DEFAULT_MAX_FEEDRATE          {500, 500, 5, 25}    // (mm/sec)
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   {78.7402,78.7402,200.0*8/3,760*1.1}  // default steps per unit for Ultimaker
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,4000,760*1.1}  // default steps per unit for Ultimaker
+//#define DEFAULT_MAX_FEEDRATE          {500, 500, 5, 25}    // (mm/sec)
+#define DEFAULT_MAX_FEEDRATE          {500, 500, 3, 45}    // (mm/sec)
+//#define DEFAULT_MAX_ACCELERATION      {9000,9000,100,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
 #define DEFAULT_MAX_ACCELERATION      {9000,9000,100,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
 
 #define DEFAULT_ACCELERATION          3000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
@@ -379,7 +392,7 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
 //#define EEPROM_CHITCHAT
 
 // Preheat Constants
-#define PLA_PREHEAT_HOTEND_TEMP 180 
+#define PLA_PREHEAT_HOTEND_TEMP 180
 #define PLA_PREHEAT_HPB_TEMP 70
 #define PLA_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
 
@@ -406,7 +419,7 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
 
 // The GADGETS3D G3D LCD/SD Controller (blue PCB)
 // http://reprap.org/wiki/RAMPS_1.3/1.4_GADGETS3D_Shield_with_Panel
-//#define G3D_PANEL
+#define G3D_PANEL
 
 // The RepRapDiscount FULL GRAPHIC Smart Controller (quadratic white PCB)
 // http://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
@@ -464,7 +477,7 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
   #define LCD_I2C_TYPE_PCF8575
   #define LCD_I2C_ADDRESS 0x27   // I2C Address of the port expander
   #define NEWPANEL
-  #define ULTIPANEL 
+  #define ULTIPANEL
 #endif
 
 // PANELOLU2 LCD with status LEDs, separate encoder and click inputs
@@ -473,13 +486,13 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
   // This uses the LiquidTWI2 library v1.2.3 or later ( https://github.com/lincomatic/LiquidTWI2 )
   // Make sure the LiquidTWI2 directory is placed in the Arduino or Sketchbook libraries subdirectory.
   // (v1.2.3 no longer requires you to define PANELOLU in the LiquidTWI2.h library header file)
-  // Note: The PANELOLU2 encoder click input can either be directly connected to a pin 
-  //       (if BTN_ENC defined to != -1) or read through I2C (when BTN_ENC == -1). 
+  // Note: The PANELOLU2 encoder click input can either be directly connected to a pin
+  //       (if BTN_ENC defined to != -1) or read through I2C (when BTN_ENC == -1).
   #define LCD_I2C_TYPE_MCP23017
   #define LCD_I2C_ADDRESS 0x20 // I2C Address of the port expander
   #define LCD_USE_I2C_BUZZER //comment out to disable buzzer on LCD
   #define NEWPANEL
-  #define ULTIPANEL 
+  #define ULTIPANEL
 #endif
 
 // Panucatt VIKI LCD with status LEDs, integrated click & L/R/U/P buttons, separate encoder inputs
@@ -489,11 +502,11 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
   // Make sure the LiquidTWI2 directory is placed in the Arduino or Sketchbook libraries subdirectory.
   // Note: The pause/stop/resume LCD button pin should be connected to the Arduino
   //       BTN_ENC pin (or set BTN_ENC to -1 if not used)
-  #define LCD_I2C_TYPE_MCP23017 
+  #define LCD_I2C_TYPE_MCP23017
   #define LCD_I2C_ADDRESS 0x20 // I2C Address of the port expander
   #define LCD_USE_I2C_BUZZER //comment out to disable buzzer on LCD (requires LiquidTWI2 v1.2.3 or later)
   #define NEWPANEL
-  #define ULTIPANEL 
+  #define ULTIPANEL
 #endif
 
 #ifdef ULTIPANEL
@@ -565,10 +578,10 @@ const bool Z_ENDSTOPS_INVERTING = true; // set to true to invert the logic of th
 //#define NUM_SERVOS 3 // Servo index starts with 0 for M280 command
 
 // Servo Endstops
-// 
+//
 // This allows for servo actuated endstops, primary usage is for the Z Axis to eliminate calibration or bed height changes.
 // Use M206 command to correct for switch height offset to actual nozzle height. Store that setting with M500.
-// 
+//
 //#define SERVO_ENDSTOPS {-1, -1, 0} // Servo index for X, Y, Z. Disable with -1
 //#define SERVO_ENDSTOP_ANGLES {0,0, 0,0, 70,0} // X,Y,Z Axis Extend and Retract angles
 
